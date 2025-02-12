@@ -56,14 +56,15 @@ public class RegistrationAndLoginController {
                         UserLoginTrackerDto userLoginTrackerDto = new UserLoginTrackerDto();
                         userLoginTrackerDto.setUser(userDetails);
 
-                        webClient.post()
+                        return webClient.post()
                                 .uri("lb://USER-ATTENDANCE-SERVICE/login-tracker")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .body(BodyInserters.fromValue(userLoginTrackerDto))
                                 .retrieve()
-                                .bodyToMono(UserLoginTrackerDto.class);
+                                .bodyToMono(UserLoginTrackerDto.class)
+                                .thenReturn(token);
 
-                        return Mono.just(token);
+//                        return Mono.just(token);
                     } else {
                         return Mono.just("Authentication failed");
                     }
