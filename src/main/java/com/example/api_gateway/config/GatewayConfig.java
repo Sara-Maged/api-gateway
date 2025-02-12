@@ -20,9 +20,9 @@ public class GatewayConfig {
                         .uri("lb://USER-ATTENDANCE-SERVICE")) // Service discovery (application.name)
                 .route("job-service-route", r -> r.path("/job/**") // Path at the gateway
                         .filters(f -> f
-                                .filter(jwtAuthenticationFilter) // JWT Authentication (re-enable later)
-                                .rewritePath("/job/(?<path>.*)", "/job-api/${path}")) // Rewrite the path
-                        .uri("lb://JOBMANAGEMENTSVC")) // Use the EXACT application name from properties
+                                .filter(jwtAuthenticationFilter)
+                                .rewritePath("/job/(?<path>.*)", "/job-api/${path}"))
+                        .uri("lb://JOBMANAGEMENTSVC"))
                 .build();
     }
 }
